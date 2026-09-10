@@ -1,0 +1,5 @@
+method,shift_over_Lp,shift_physical_m,fit_error,notes
+least_squares,0.06244345275568224,0.015720082814207875,0.02738350105088842,ordinary RMSE over selected fit points
+robust_weighted,0.06369209148772718,0.01603442648686758,0.015238826076542653,soft-L1 loss with high-gradient downweighting
+feature_midrise,0.06575123632738,0.016552814339833407,0.01535358257334587,aligns pressure-rise midpoint locations
+hybrid_feature_then_robust,0.0636798751293993,0.01603135102969589,0.015238829933744119,feature midpoint initial estimate with local robust search

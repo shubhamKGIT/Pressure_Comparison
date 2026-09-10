@@ -3,20 +3,25 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.interpolate import griddata
 from pathlib import Path
+import os
 
 # --------------------------------------------------
 # User inputs
 # --------------------------------------------------
 REPO_DIR = Path(__file__).parent.parent
-PROJECT = "2023Avaition"
-IN_CSV = "panel_pressure_clean_columns.csv"
-OUT_CSV  = "pressure_contour_normalized_data.csv"
-OUT_FIG = "pressure_contour_normalized.png"
+PROJECT = "SBLI_challenge"
+FILE_FOLDER =  "case3"
+IN_CSV = "panel_pressure_sim.csv"
+OUT_CSV  = "panel_pressure_contour_normalized_data.csv"
+OUT_FIG = "panel_pressure_contour_normalized.png"
 
-csv_folder = REPO_DIR/ "csv_files"/ PROJECT
+csv_folder = REPO_DIR/ "csv_files"/ PROJECT / FILE_FOLDER
 input_csv = csv_folder/ IN_CSV      # change this
 output_csv = csv_folder / OUT_CSV
-results_folder = REPO_DIR/ "results" / PROJECT
+results_folder = REPO_DIR/ "results" / PROJECT / FILE_FOLDER
+if not os.path.exists(results_folder):
+    os.makedirs(results_folder)
+
 output_figure = results_folder/ OUT_FIG
 
 pressure_column = "pressure"
@@ -24,7 +29,7 @@ pressure_column = "pressure"
 # Reference pressure for normalization
 # Use your freestream/static reference pressure here.
 # Example from your earlier setup: p_inf = 48400 Pa
-p_inf = 48400.0
+p_inf = 49900.0
 
 # Optional manual panel length.
 # If None, Lp = x_max - x_min from data.

@@ -1,19 +1,23 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
+import os
 
 # --------------------------------------------------
 # User inputs
 # --------------------------------------------------
 REPO_DIR = Path(__file__).parent.parent
-PROJECT = "2023Avaition"
-IN_CSV = "panel_pressure_clean_columns.csv"
+PROJECT = "SBLI_challenge"
+FILE_FOLDER =  "case1"
+IN_CSV = "panel_pressure_sim.csv"
 OUT_CSV  = "pressure_centerline_x_norm.csv"
 OUT_FOG = "pressure_centerline_x_norm.png"
 
-csv_folder = REPO_DIR/ "csv_files"/ PROJECT
+csv_folder = REPO_DIR/ "csv_files"/ PROJECT / FILE_FOLDER
 input_csv = csv_folder/ IN_CSV      # change this
 results_folder = REPO_DIR/ "results" / PROJECT
+if not os.path.exists(results_folder):
+    os.makedirs(results_folder)
 output_figure = results_folder/ OUT_FOG
 output_csv = csv_folder / OUT_CSV
 
@@ -29,8 +33,8 @@ y_tolerance = None
 
 # Pressure scaling
 pressure_scale = 0.001    # use 0.001 if pressure is in Pa and you want kPa
-pressure_label = "Pressure [kPa]"  # use "Pressure [kPa]" if pressure_scale = 0.001
-
+pressure_label = "Normalised Pressure"  # use "Pressure [kPa]" if pressure_scale = 0.001
+p_inf = 49900* pressure_scale
 # --------------------------------------------------
 # Read data
 # --------------------------------------------------
@@ -116,7 +120,7 @@ print(f"Saved extracted centerline data to: {output_csv}")
 # Plot pressure vs normalized x
 # --------------------------------------------------
 x_plot = centerline_df["x_over_Lp"]
-p_plot = centerline_df[pressure_column] * pressure_scale
+p_plot = centerline_df[pressure_column] * pressure_scale / p_inf
 
 plt.figure(figsize=(8, 5))
 plt.plot(x_plot, p_plot, linewidth=2)

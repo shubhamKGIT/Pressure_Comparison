@@ -3,24 +3,28 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.interpolate import griddata
 from pathlib import Path
-
+import os
 # ==================================================
 # User inputs
 # ==================================================
+FILE_FOLDER = "case3"
 REPO_DIR = Path(__file__).parent.parent
-PROJECT = "2023_Aviation"
-SIM_CSV = "panel_pressure_2023Avia_VisSol.csv"
+PROJECT = "SBLI_challenge"
+SIM_CSV = "panel_pressure_sim.csv"
 DIG_CSV = "digitized_pressure_field_2023Avia.csv"
 
 project_dir = REPO_DIR/ "csv_files"/ PROJECT
 # Simulation / Fluent CSV
-sim_csv = project_dir/ SIM_CSV
+sim_csv_filename = SIM_CSV
+sim_csv = project_dir/ FILE_FOLDER/ sim_csv_filename
 
 # Digitized paper CSv
-dig_csv = project_dir/ DIG_CSV
+dig_csv = project_dir/ FILE_FOLDER/ DIG_CSV
 
 # Setting up where all outputs go
-output_folder = REPO_DIR/ "results" / PROJECT
+output_folder = REPO_DIR/ "results" / PROJECT/ FILE_FOLDER
+if not os.path.exists(output_folder): 
+    os.makedirs(output_folder)
 # Output files
 output_comparison_csv = output_folder/"pressure_field_comparison.csv"
 output_2d_figure = output_folder/"pressure_comparison_2d.png"
@@ -336,8 +340,8 @@ c1 = axes[0, 0].contourf(
 )
 fig.colorbar(c1, ax=axes[0, 0])
 axes[0, 0].set_title(r"Simulation: $P/P_\infty$")
-axes[0, 0].set_xlabel(r"$x/L_p$")
-axes[0, 0].set_ylabel(r"$y/L_p$")
+axes[0, 0].set_xlabel(r"$x/L_p$", fontsize=18)
+axes[0, 0].set_ylabel(r"$y/L_p$", fontsize=18)
 
 # Digitized pressure
 c2 = axes[0, 1].contourf(
@@ -350,8 +354,8 @@ c2 = axes[0, 1].contourf(
 )
 fig.colorbar(c2, ax=axes[0, 1])
 axes[0, 1].set_title(r"Digitized paper: $P/P_\infty$")
-axes[0, 1].set_xlabel(r"$x/L_p$")
-axes[0, 1].set_ylabel(r"$y/L_p$")
+axes[0, 1].set_xlabel(r"$x/L_p$", fontsize=18)
+axes[0, 1].set_ylabel(r"$y/L_p$", fontsize=18)
 
 # Difference
 c3 = axes[1, 0].contourf(
@@ -364,8 +368,8 @@ c3 = axes[1, 0].contourf(
 )
 fig.colorbar(c3, ax=axes[1, 0])
 axes[1, 0].set_title(r"Difference: simulation $-$ digitized")
-axes[1, 0].set_xlabel(r"$x/L_p$")
-axes[1, 0].set_ylabel(r"$y/L_p$")
+axes[1, 0].set_xlabel(r"$x/L_p$", fontsize=18)
+axes[1, 0].set_ylabel(r"$y/L_p$", fontsize=18)
 
 # Gap beyond uncertainty
 c4 = axes[1, 1].contourf(
@@ -378,8 +382,8 @@ c4 = axes[1, 1].contourf(
 )
 fig.colorbar(c4, ax=axes[1, 1])
 axes[1, 1].set_title(r"Signed gap beyond digitization uncertainty")
-axes[1, 1].set_xlabel(r"$x/L_p$")
-axes[1, 1].set_ylabel(r"$y/L_p$")
+axes[1, 1].set_xlabel(r"$x/L_p$", fontsize=18)
+axes[1, 1].set_ylabel(r"$y/L_p$", fontsize=18)
 
 for ax in axes.ravel():
     ax.set_xlim(x_norm_min, x_norm_max)
@@ -483,7 +487,7 @@ ax1.plot(
     zorder=4
 )
 
-ax1.set_ylabel(r"$P/P_\infty$")
+ax1.set_ylabel(r"$P/P_\infty$", fontsize=18)
 ax1.set_title(r"Centerline Pressure Comparison at $y/L_p = 0$")
 ax1.grid(True, alpha=0.3)
 ax1.legend(loc="best")
@@ -527,8 +531,8 @@ ax2.fill_between(
 
 ax2.axhline(0.0, color="k", linewidth=1.0, alpha=0.5)
 
-ax2.set_xlabel(r"$x/L_p$")
-ax2.set_ylabel(r"$\Delta P/P_\infty$")
+ax2.set_xlabel(r"$x/L_p$", fontsize=18)
+ax2.set_ylabel(r"$\Delta P/P_\infty$", fontsize=18)
 ax2.grid(True, alpha=0.3)
 ax2.legend(loc="best")
 

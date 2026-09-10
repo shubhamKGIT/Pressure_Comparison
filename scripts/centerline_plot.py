@@ -9,13 +9,15 @@ REPO_DIR = Path(__file__).parent.parent
 PROJECT = "2023Avaition"
 IN_CSV = "panel_pressure_clean_columns.csv"
 OUT_CSV  = "pressure_centerline_x.csv"
-OUT_FOG = "pressure_centerline_x.png"
+OUT_FIG = "pressure_centerline_x.png"
 
 csv_folder = REPO_DIR/ "csv_files"/ PROJECT
 input_csv = csv_folder/ IN_CSV      # change this
-results_folder = REPO_DIR/ "results" / PROJECT
-output_figure = results_folder/ OUT_FOG
 output_csv = csv_folder / OUT_CSV
+
+results_folder = REPO_DIR/ "results" / PROJECT
+output_figure = results_folder/ OUT_FIG
+
 
 
 pressure_column = "pressure"
